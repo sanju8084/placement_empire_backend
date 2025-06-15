@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
       pdf.create(html).toBuffer((err, buffer) => {
         if (err) {
           console.error("PDF error:", err);
-          return res.status(500).send("PDF error");
+return res.status(500).send("PDF generation failed");
         }
   console.log("PDF generated"); 
 
@@ -53,9 +53,9 @@ service: "gmail",
 
 transporter.sendMail(mailOptions, (err, info) => {
   if (err) {
-    console.error("Email error:", err);
-    return res.status(500).send("Email send error");
-  }
+  console.error("Email error:", err);
+  return res.status(500).send("Failed to send email. Please try again.");
+}
 
   console.log("Email sent: ", info.response);
   res.status(200).send("Ticket submitted and emailed.");
