@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     // Save to MongoDB
     const ticket = new Ticket({ name, mobile, email, category });
     await ticket.save();
- res.send("Saved")
+//  res.send("Saved")
     // Render EJS template
     const templatePath = path.join(__dirname, "../templates/ticket.ejs");
 
