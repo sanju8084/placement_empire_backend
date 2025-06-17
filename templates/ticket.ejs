@@ -11,19 +11,21 @@
       padding: 0;
     }
 
-    body {
+    html, body {
       font-family: 'Poppins', sans-serif;
       background: #ffffff;
       color: #333;
-      padding: 40px 20px;
-
-  display: block; 
-
-      justify-content: center;
       line-height: 1.6;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      padding: 40px 20px;
     }
 
     .card {
+      margin: 0 auto;
       background: #ffffff;
       border: 1px solid #ccc;
       border-radius: 16px;
@@ -39,7 +41,6 @@
     }
 
     .header img {
-      background: transparent;
       max-width: 130px;
       height: auto;
       margin-bottom: 18px;
@@ -82,7 +83,8 @@
       color: #00bfa6;
       display: inline-block;
       width: 170px;
-margin-right: 10px;    }
+      margin-right: 10px;
+    }
 
     .footer {
       text-align: center;
@@ -95,16 +97,18 @@ margin-right: 10px;    }
     }
 
     @media print {
-      body {
-        background: white;
-        padding: 20px;
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: auto;
       }
 
       .card {
-        border: none;
         box-shadow: none;
+        border: none;
         width: 100%;
         padding: 20px;
+        margin: 0;
       }
 
       .footer {
@@ -122,7 +126,7 @@ margin-right: 10px;    }
     </div>
 
     <div class="ticket">
-  Ticket Number: <%= ticketNo %>
+      Ticket Number: <%= ticketNo %>
     </div>
 
     <div class="info">
