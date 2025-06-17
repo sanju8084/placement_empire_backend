@@ -1,17 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <title>Placement Empire | Membership Confirmation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial; padding: 20px; border: 2px dashed #00bfa6; }
-    h1 { color: #00bfa6; }
-    p { font-size: 18px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #333;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      width: 850px;
+      max-width: 95%;
+      padding: 40px 32px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header img {
+      background: transparent;
+      max-width: 130px;
+      height: auto;
+      margin-bottom: 18px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      color: #00bfa6;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header h2 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #444;
+    }
+
+    .ticket {
+      background: #e0fdfa;
+      border-left: 5px solid #00bfa6;
+      padding: 14px 22px;
+      margin: 28px 0;
+      font-size: 17px;
+      font-weight: 600;
+      color: #007f6c;
+      border-radius: 4px;
+    }
+
+    .info p,
+    .extra p {
+      font-size: 16px;
+      margin: 12px 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #00bfa6;
+      display: inline-block;
+      width: 170px;
+margin-right: 10px;    }
+
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-top: 40px;
+      border-top: 1px dashed #ccc;
+      padding-top: 16px;
+      font-style: italic;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 20px;
+      }
+
+      .card {
+        border: none;
+        box-shadow: none;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .footer {
+        color: #000;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Your Event Ticket</h1>
-  <p><strong>Name:</strong> <%= name %></p>
-  <p><strong>Mobile:</strong> <%= mobile %></p>
-  <p><strong>Email:</strong> <%= email %></p>
-  <p><strong>Category:</strong> <%= category %></p>
+  <div class="card">
+    <div class="header">
+      <img src="data:image/png;base64,<%= base64Image %>" alt="Placement Empire Logo" />
+      <h1>Placement Empire</h1>
+      <h2>Membership Confirmation</h2>
+    </div>
+
+    <div class="ticket">
+      Ticket Number: PEM01/<%= new Date().toLocaleDateString('en-GB') %>
+    </div>
+
+    <div class="info">
+      <p><span class="label">Name:</span> <%= name %></p>
+      <p><span class="label">Mobile:</span> <%= mobile %></p>
+      <p><span class="label">Email:</span> <%= email %></p>
+      <p><span class="label">Membership:</span> <%= category %></p>
+    </div>
+
+    <div class="extra">
+      <p><span class="label">Instagram/Facebook:</span> @empireofplacement</p>
+      <p><span class="label">Address:</span> Maripur, Muzaffarpur, Bihar – 842001<br>(Near Royal Phullar, Behind Urmilla Hotel)</p>
+      <p><span class="label">Support:</span> +91 7079887439</p>
+      <p><span class="label">Email:</span> jobsdost@gmail.com</p>
+    </div>
+
+    <div class="footer">
+      Thank you for becoming a member of <strong>Placement Empire</strong>.<br />
+      We’re excited to be part of your career journey!
+    </div>
+  </div>
 </body>
 </html>

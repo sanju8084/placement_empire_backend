@@ -7,6 +7,11 @@ const ejs = require("ejs");
 const path = require("path");
 require("dotenv").config();
 
+const fs = require("fs");
+const imagePath = path.join(__dirname, "../public/logo.png"); // Make sure it's .jpg or .png
+const base64Image = fs.readFileSync(imagePath).toString("base64");
+
+
 router.post("/", async (req, res) => {
   try {
     const { name, mobile, email, category } = req.body;
@@ -18,11 +23,15 @@ router.post("/", async (req, res) => {
     // Render EJS template
     const templatePath = path.join(__dirname, "../templates/ticket.ejs");
 
-    ejs.renderFile(templatePath, { name, mobile, email, category }, (err, html) => {
-      if (err) {
-        console.error("EJS render error:", err);
-        return res.status(500).send("Template error");
-      }
+ejs.renderFile(
+  templatePath,
+  { name, mobile, email, category, base64Image },
+  (err, html) => {
+    if (err) {
+      console.error("EJS render error:", err);
+      return res.status(500).send("Template error");
+    }
+
 
       // Convert to PDF
       pdf.create(html).toBuffer((err, buffer) => {
