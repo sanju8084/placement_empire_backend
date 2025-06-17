@@ -1,4 +1,3 @@
-// models/Ticket.js
 const mongoose = require("mongoose");
 
 const TicketSchema = new mongoose.Schema({
@@ -6,6 +5,7 @@ const TicketSchema = new mongoose.Schema({
   mobile: String,
   email: String,
   category: String,
-});
+  ticketNo: String, // Add this field
+}, { timestamps: true });
 
 module.exports = mongoose.model("Ticket", TicketSchema);
