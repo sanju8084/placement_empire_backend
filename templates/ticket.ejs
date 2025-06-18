@@ -16,12 +16,11 @@
       background: #ffffff;
       color: #333;
       line-height: 1.6;
-      width: 100%;
-      height: 100%;
     }
 
     body {
-      padding: 40px 20px;
+      padding: 20px 20px;
+      margin: 0;
     }
 
     .card {
@@ -29,32 +28,33 @@
       background: #ffffff;
       border: 1px solid #ccc;
       border-radius: 16px;
-      width: 850px;
-      max-width: 95%;
-      padding: 40px 32px;
+      width: 800px;
+      max-width: 100%;
+      padding: 32px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      page-break-inside: avoid;
     }
 
     .header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
 
     .header img {
-      max-width: 130px;
+      max-width: 120px;
       height: auto;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .header h1 {
-      font-size: 32px;
+      font-size: 28px;
       color: #00bfa6;
       font-weight: 700;
       margin-bottom: 4px;
     }
 
     .header h2 {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       color: #444;
     }
@@ -62,9 +62,9 @@
     .ticket {
       background: #e0fdfa;
       border-left: 5px solid #00bfa6;
-      padding: 14px 22px;
-      margin: 28px 0;
-      font-size: 17px;
+      padding: 12px 20px;
+      margin: 24px 0;
+      font-size: 16px;
       font-weight: 600;
       color: #007f6c;
       border-radius: 4px;
@@ -72,34 +72,34 @@
 
     .info p,
     .extra p {
-      font-size: 16px;
-      margin: 12px 0;
+      font-size: 15px;
+      margin: 10px 0;
       border-bottom: 1px solid #eee;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
     }
 
     .label {
       font-weight: 600;
       color: #00bfa6;
       display: inline-block;
-      width: 170px;
-      margin-right: 10px;
+      width: 150px;
+      margin-right: 12px;
     }
 
     .footer {
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       color: #555;
-      margin-top: 40px;
+      margin-top: 30px;
       border-top: 1px dashed #ccc;
-      padding-top: 16px;
+      padding-top: 14px;
       font-style: italic;
     }
 
     @media print {
       html, body {
         margin: 0;
-        padding: 0;
+        padding: 5px;
         height: auto;
       }
 
@@ -107,8 +107,9 @@
         box-shadow: none;
         border: none;
         width: 100%;
-        padding: 20px;
+        padding: 20px 30px;
         margin: 0;
+        page-break-inside: avoid;
       }
 
       .footer {
@@ -135,8 +136,7 @@
       <p><span class="label">Email:</span> <%= email %></p>
       <p><span class="label">Membership:</span> <%= category %></p>
       <p><span class="label">Price:</span> ₹<%= price %></p>
-<p><span class="label">Payment Status:</span> <%= paymentStatus %></p>
-
+      <p><span class="label">Payment Status:</span> <%= paymentStatus %></p>
     </div>
 
     <div class="extra">
