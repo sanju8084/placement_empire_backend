@@ -5,7 +5,10 @@ const TicketSchema = new mongoose.Schema({
   mobile: String,
   email: String,
   category: String,
-  ticketNo: String, // Add this field
+  price: Number,
+  ticketNo: String,
+  razorpay_payment_id: String,
+
 }, { timestamps: true });
 
 module.exports = mongoose.model("Ticket", TicketSchema);

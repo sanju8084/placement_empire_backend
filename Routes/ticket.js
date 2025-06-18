@@ -13,7 +13,7 @@ const base64Image = fs.readFileSync(imagePath).toString("base64");
 
 router.post("/", async (req, res) => {
   try {
-    const { name, mobile, email, category } = req.body;
+    const { name, mobile, email, category,price,razorpay_payment_id, paymentStatus } = req.body;
 
     // Get the latest ticket to determine the next number
     const lastTicket = await Ticket.findOne().sort({ createdAt: -1 });
@@ -33,6 +33,13 @@ router.post("/", async (req, res) => {
       mobile,
       email,
       category,
+        price,
+paymentStatus: {
+  type: String,
+  enum: ["Done", "Not Done"],
+  default: "Not Done"
+},
+
       ticketNo: fullTicketNo,
     });
 
@@ -43,7 +50,7 @@ router.post("/", async (req, res) => {
 
     ejs.renderFile(
       templatePath,
-      { name, mobile, email, category, base64Image, ticketNo: fullTicketNo },
+      { name, mobile, email, category, base64Image, ticketNo: fullTicketNo,price,paymentStatus },
       (err, html) => {
         if (err) {
           console.error("EJS render error:", err);
@@ -64,14 +71,19 @@ router.post("/", async (req, res) => {
             },
           });
 
-          const mailOptions = {
-            from: "sanjanakiei20@gmail.com",
-            to: email,
-            subject: "Your Event Ticket",
-            text: "Please find your ticket attached.",
-            attachments: [{ filename: "ticket.pdf", content: buffer }],
-          };
-
+        const mailOptions = {
+  from: "sanjanakiei20@gmail.com",
+  to: email,
+  subject: "Your Event Ticket - Placement Empire",
+  text: "Dear Member,\n\nThank you for joining Placement Empire. Please find your ticket attached.\n\nBest regards,\nPlacement Empire",
+  attachments: [
+    {
+      filename: "ticket.pdf",
+      content: buffer,
+      contentType: "application/pdf",
+    },
+  ],
+};
           transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
               console.error("Email error:", err);
