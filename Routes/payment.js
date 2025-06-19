@@ -13,12 +13,12 @@ router.post("/create-order", async (req, res) => {
 
   try {
     const order = await razorpay.orders.create({
-      amount: amount * 100, // Razorpay accepts paise
+      amount: amount*100, // in paise
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     });
 
-    res.status(200).json(order);
+    res.status(200).json({ id: order.id, amount: order.amount }); // Return id and amount
   } catch (error) {
     console.error("Razorpay order creation error:", error);
     res.status(500).send("Payment initialization failed");
