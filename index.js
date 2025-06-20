@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/api/tickets", require("./Routes/ticket"));
 app.use("/api/payment", require("./Routes/payment"));
 app.use("/api/admin", require("./Routes/admin"));
+app.use('/uploads', express.static('uploads'));
 
 // Start Server
 app.listen(PORT, '0.0.0.0', () => {
