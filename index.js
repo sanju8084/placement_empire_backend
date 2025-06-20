@@ -15,7 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/tickets", require("./Routes/ticket"));
-app.use("/api/payment", require("./Routes/payment"));
+// app.use("/api/payment", require("./Routes/payment"));
 app.use("/api/admin", require("./Routes/admin"));
 app.use('/uploads', express.static('uploads'));
 
