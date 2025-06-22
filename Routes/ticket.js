@@ -105,7 +105,6 @@
 // });
 
 // module.exports = router;
-
 const express = require("express");
 const router = express.Router();
 const Ticket = require("../models/Ticket");
@@ -119,9 +118,19 @@ const multer = require("multer");
 const imagePath = path.join(__dirname, "../public/logo.png");
 const base64Image = fs.readFileSync(imagePath).toString("base64");
 
-// Multer setup
-const storage = multer.memoryStorage();
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
 const upload = multer({ storage });
+
 
 router.post("/", upload.single("screenshot"), async (req, res) => {
   try {
@@ -136,8 +145,7 @@ router.post("/", upload.single("screenshot"), async (req, res) => {
     }
 
     const formattedDate = new Date().toLocaleDateString("en-GB");
-    const fullTicketNo = `PEM${String(ticketNumber).padStart(2, '0')}/${formattedDate}`;
-
+    const fullTicketNo = `PEM${String(ticketNumber).padStart(2, '0')}/${new Date().toLocaleDateString("en-GB")}`;
     const paymentStatus = screenshot ? "Done" : "Not Done";
 
     const ticket = new Ticket({
@@ -148,6 +156,8 @@ router.post("/", upload.single("screenshot"), async (req, res) => {
       price,
       ticketNo: fullTicketNo,
       paymentStatus,
+            screenshot: req.file?.filename,
+
     });
 
     await ticket.save();
@@ -158,16 +168,10 @@ router.post("/", upload.single("screenshot"), async (req, res) => {
       templatePath,
       { name, mobile, email, category, base64Image, ticketNo: fullTicketNo, price, paymentStatus },
       (err, html) => {
-        if (err) {
-          console.error("EJS render error:", err);
-          return res.status(500).send("Template error");
-        }
+        if (err) return res.status(500).send("Template error");
 
         pdf.create(html).toBuffer((err, buffer) => {
-          if (err) {
-            console.error("PDF error:", err);
-            return res.status(500).send("PDF generation failed");
-          }
+          if (err) return res.status(500).send("PDF generation failed");
 
           const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -181,23 +185,16 @@ router.post("/", upload.single("screenshot"), async (req, res) => {
             from: process.env.EMAIL_USER,
             to: email,
             subject: "Your Event Ticket - Placement Empire",
-            text: "Dear Member,\n\nThank you for joining Placement Empire. Please find your ticket attached.\n\nBest regards,\nPlacement Empire",
-            attachments: [
-              {
-                filename: "ticket.pdf",
-                content: buffer,
-                contentType: "application/pdf",
-              },
-            ],
+            text: "Dear Member,\n\nThank you for joining Placement Empire. Please find your ticket attached.",
+            attachments: [{
+              filename: "ticket.pdf",
+              content: buffer,
+              contentType: "application/pdf",
+            }],
           };
 
           transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-              console.error("Email error:", err);
-              return res.status(500).send("Failed to send email");
-            }
-
-            console.log("Email sent: ", info.response);
+            if (err) return res.status(500).send("Failed to send email");
             res.status(200).send("Ticket submitted and emailed.");
           });
         });

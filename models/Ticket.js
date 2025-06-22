@@ -12,7 +12,6 @@
 // }, { timestamps: true });
 
 // module.exports = mongoose.model("Ticket", TicketSchema);
-
 const mongoose = require("mongoose");
 
 const TicketSchema = new mongoose.Schema({
@@ -25,9 +24,9 @@ const TicketSchema = new mongoose.Schema({
   paymentStatus: {
     type: String,
     enum: ["Done", "Not Done"],
-    default: "Not Done"
+    default: "Not Done",
   },
-  paymentScreenshot: String,
+  screenshot: String,
 }, { timestamps: true });
 
 module.exports = mongoose.model("Ticket", TicketSchema);
