@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Ticket = require("../models/Ticket");
 
-// Get all tickets
 router.get("/tickets", async (req, res) => {
   try {
     const tickets = await Ticket.find().sort({ createdAt: -1 });
@@ -12,7 +11,6 @@ router.get("/tickets", async (req, res) => {
   }
 });
 
-// Delete a ticket
 router.delete("/tickets/:id", async (req, res) => {
   try {
     await Ticket.findByIdAndDelete(req.params.id);
